@@ -1,0 +1,21 @@
+{
+  "name": "mentoria-qa-desafio4-grupo22",
+  "version": "1.0.0",
+  "description": "API REST para cadastro de viagens dos sonhos",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "api",
+    "rest"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
