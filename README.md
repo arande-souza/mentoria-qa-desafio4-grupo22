@@ -37,11 +37,15 @@ Cria uma nova viagem.
 
 ```json
 {
-  "destino": "  Tailandia  ",
-  "orcamento": 8500.5,
-  "atividades": ["Praias", "  Templos  ", "Gastronomia"],
-  "duracaoDias": 12,
-  "realizada": false
+  "destino": "Japao",
+  "orcamento": 15000,
+  "atividades": [
+    "Templos",
+    "Anime",
+    "Culinaria"
+  ],
+  "dias": 15,
+  "status": false
 }
 ```
 
@@ -62,29 +66,17 @@ Cria uma nova viagem.
 
 Lista todas as viagens em memoria.
 
-#### Exemplo de resposta 200
-
-```json
-[
-  {
-    "id": 1,
-    "destino": "Tailandia",
-    "orcamento": 8500.5,
-    "atividades": ["Praias", "Templos", "Gastronomia"],
-    "duracaoDias": 12,
-    "realizada": false
-  }
-]
-```
-
 ## Regras implementadas
 
-- `destino` obrigatorio, string, com trim, nao vazio e maximo de 50 caracteres
-- `orcamento` obrigatorio, numero valido e maior que 0
-- `atividades` obrigatorio, array com 1 a 10 itens e apenas strings nao vazias
-- `duracaoDias` obrigatorio, inteiro e maior ou igual a 1
-- `realizada` obrigatorio e boolean
-- destino duplicado ignorando maiusculas e minusculas retorna `409`
+| Campo | Tipo | Regra |
+|------|------|------|
+| Destino | `string` | Máximo de 50 caracteres | obrigatorio
+| Orçamento | `float` | Deve ser maior que 0,00 |obrigatorio
+| Lista de atividades | `string[]` | Deve conter entre 1 e 10 atividades |obrigatorio
+| Duração (dias) | `integer` | Deve ser maior ou igual a 1 |obrigatorio
+| Realizada | `boolean` | Aceita apenas `true` ou `false` |obrigatorio
+
+- Não deve ser permitido cadastrar destinos duplicados, considerando comparação case-insensitive. O sistema deve retornar status `409` Conflict.
 - erros de validacao retornam `400`
 - ID incremental gerado em memoria
 
@@ -93,5 +85,5 @@ Lista todas as viagens em memoria.
 ```bash
 curl -X POST http://localhost:3000/viagens \
   -H "Content-Type: application/json" \
-  -d "{\"destino\":\"Japao\",\"orcamento\":15000,\"atividades\":[\"Templos\",\"Anime\",\"Culinaria\"],\"duracaoDias\":15,\"realizada\":false}"
+  -d "{\"destino\":\"Japão\",\"orcamento\":15000,\"atividades\":[\"Templos\",\"Anime\",\"Culinaria\"],\"dias\":15,\"status\":false}"
 ```
