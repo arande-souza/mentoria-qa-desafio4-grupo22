@@ -1,14 +1,90 @@
-# mentoria-qa-desafio4-grupo22
+# ✈️ Dream Travel API | mentoria-qa-desafio4-grupo22
 
-API REST em Node.js com Express para cadastro de viagens dos sonhos, usando persistencia em memoria.
+API REST desenvolvida em **Node.js + Express** para gerenciamento de viagens dos sonhos.
 
-## Requisitos
+> 🧪 **Foco principal:** construção de testes automatizados de API utilizando **Supertest**, validando regras de negócio, contratos e cenários de erro.
+
+---
+
+## 🚀 Objetivo
+
+Este projeto tem como principal objetivo **validar uma API através de testes automatizados**, simulando cenários reais de qualidade de software.
+
+A API serve como base para aplicação de testes com foco em:
+
+- Testes de API com **Supertest**
+- Validação de contratos de resposta
+- Cobertura de cenários positivos e negativos
+- Validação de regras de negócio
+- Testes de status HTTP (`200`, `201`, `400`, `409`)
+- Estruturação de testes para evolução contínua
+
+---
+
+## 🧪 Estratégia de Testes
+
+Os testes foram desenvolvidos utilizando **Supertest**, permitindo validar a API de forma rápida e isolada.
+
+### Principais cenários cobertos:
+
+- ✅ Criação de viagem com dados válidos (Happy Path)
+- ❌ Validação de campos obrigatórios
+- ❌ Regras de negócio (ex: orçamento inválido, lista de atividades fora do limite)
+- ❌ Prevenção de duplicidade de destino (case-insensitive)
+- 🔁 Validação de respostas e estrutura do JSON retornado
+
+---
+
+## 🛠️ Tecnologias utilizadas
+
+### API
+- Node.js
+- Express
+
+### Testes
+- Supertest
+- Jest (ou framework utilizado)
+
+---
+
+## 💡 Abordagem QA
+
+Este projeto foi estruturado seguindo boas práticas de qualidade:
+
+- Separação entre aplicação e testes
+- Cenários organizados por comportamento
+- Validação de status code + payload
+- Cobertura de casos de erro (não só happy path)
+- Preparação para CI/CD
+
+---
+
+## ⚠️ Observação
+
+A API utiliza persistência em memória, sendo ideal para:
+
+- Execução rápida de testes
+- Simulação de cenários
+- Estudos de automação de API
+
+---
+
+## 🛠️ Tecnologias utilizadas
+
+- Node.js
+- Express
+- JavaScript
+
+---
+
+## ⚙️ Como rodar o projeto
+
+### Pré-requisitos
 
 - Node.js 18 ou superior
 - npm
 
-## Como rodar
-
+### Instalação
 1. Instale as dependencias:
 
 ```bash
@@ -44,20 +120,13 @@ Cria uma nova viagem.
   "status": false
 }
 ```
+### Exemplo com CURL
 
-#### Exemplo de resposta 201
-
-```json
-{
-  "id": 1,
-  "destino": "Tailandia",
-  "orcamento": 8500.5,
-  "atividades": ["Praias", "Templos", "Gastronomia"],
-  "duracaoDias": 12,
-  "realizada": false
-}
+```bash
+curl -X POST http://localhost:3000/viagens \
+  -H "Content-Type: application/json" \
+  -d "{\"destino\":\"Japão\",\"orcamento\":15000,\"atividades\":[\"Templos\",\"Anime\",\"Culinaria\"],\"dias\":15,\"status\":false}"
 ```
-
 ### GET /viagens
 
 Lista todas as viagens em memoria.
