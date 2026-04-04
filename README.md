@@ -64,19 +64,19 @@ Lista todas as viagens em memoria.
 
 ## Regras implementadas
 
-| Campo               | Tipo       | Regra                               |
+| Campo               | Tipo       | Regra                               | Obrigatório |
 | ------------------- | ---------- | ----------------------------------- | ----------- |
-| Destino             | `string`   | Máximo de 50 caracteres             | obrigatorio |
-| Orçamento           | `float`    | Deve ser maior que 0,00             | obrigatorio |
-| Lista de atividades | `string[]` | Deve conter entre 1 e 10 atividades | obrigatorio |
-| Duração (dias)      | `integer`  | Deve ser maior ou igual a 1         | obrigatorio |
-| Realizada           | `boolean`  | Aceita apenas `true` ou `false`     | obrigatorio |
+| Destino             | `string`   | Máximo de 50 caracteres             | SIM |
+| Orçamento           | `float`    | Deve ser maior que 0,00             | SIM |
+| Lista de atividades | `string[]` | Deve conter entre 1 e 10 atividades | SIM |
+| Duração (dias)      | `integer`  | Deve ser maior ou igual a 1         | SIM |
+| Realizada           | `boolean`  | Aceita apenas `true` ou `false`     | SIM |
 
 - Não deve ser permitido cadastrar destinos duplicados, considerando comparação case-insensitive. O sistema deve retornar status `409` Conflict.
 - erros de validacao retornam `400`
 - ID incremental gerado em memoria
 
-## Exemplo com cURL
+## Exemplo com CURL
 
 ```bash
 curl -X POST http://localhost:3000/viagens \
