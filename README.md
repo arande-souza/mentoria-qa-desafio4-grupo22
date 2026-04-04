@@ -39,11 +39,7 @@ Cria uma nova viagem.
 {
   "destino": "Japao",
   "orcamento": 15000,
-  "atividades": [
-    "Templos",
-    "Anime",
-    "Culinaria"
-  ],
+  "atividades": ["Templos", "Anime", "Culinaria"],
   "dias": 15,
   "status": false
 }
@@ -68,13 +64,13 @@ Lista todas as viagens em memoria.
 
 ## Regras implementadas
 
-| Campo | Tipo | Regra |
-|------|------|------|
-| Destino | `string` | Máximo de 50 caracteres | obrigatorio
-| Orçamento | `float` | Deve ser maior que 0,00 |obrigatorio
-| Lista de atividades | `string[]` | Deve conter entre 1 e 10 atividades |obrigatorio
-| Duração (dias) | `integer` | Deve ser maior ou igual a 1 |obrigatorio
-| Realizada | `boolean` | Aceita apenas `true` ou `false` |obrigatorio
+| Campo               | Tipo       | Regra                               |
+| ------------------- | ---------- | ----------------------------------- | ----------- |
+| Destino             | `string`   | Máximo de 50 caracteres             | obrigatorio |
+| Orçamento           | `float`    | Deve ser maior que 0,00             | obrigatorio |
+| Lista de atividades | `string[]` | Deve conter entre 1 e 10 atividades | obrigatorio |
+| Duração (dias)      | `integer`  | Deve ser maior ou igual a 1         | obrigatorio |
+| Realizada           | `boolean`  | Aceita apenas `true` ou `false`     | obrigatorio |
 
 - Não deve ser permitido cadastrar destinos duplicados, considerando comparação case-insensitive. O sistema deve retornar status `409` Conflict.
 - erros de validacao retornam `400`

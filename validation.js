@@ -4,7 +4,7 @@ function validateTripPayload(body) {
   // destino precisa existir, ser texto e nao pode ficar vazio apos trim
   if (body.destino === undefined) {
     errors.push("O campo 'destino' e obrigatorio.");
-  } else if (typeof body.destino !== "string") {
+  } else if (typeof body.destino !== 'string') {
     errors.push("O campo 'destino' deve ser uma string.");
   } else {
     const destino = body.destino.trim();
@@ -21,7 +21,7 @@ function validateTripPayload(body) {
   // orcamento deve ser numero valido e maior que zero
   if (body.orcamento === undefined) {
     errors.push("O campo 'orcamento' e obrigatorio.");
-  } else if (typeof body.orcamento !== "number" || Number.isNaN(body.orcamento)) {
+  } else if (typeof body.orcamento !== 'number' || Number.isNaN(body.orcamento)) {
     errors.push("O campo 'orcamento' deve ser um numero valido.");
   } else if (body.orcamento <= 0) {
     errors.push("O campo 'orcamento' deve ser maior que 0.");
@@ -38,7 +38,7 @@ function validateTripPayload(body) {
     }
 
     body.atividades.forEach((atividade, index) => {
-      if (typeof atividade !== "string") {
+      if (typeof atividade !== 'string') {
         errors.push(`A atividade na posicao ${index} deve ser uma string.`);
         return;
       }
@@ -52,7 +52,7 @@ function validateTripPayload(body) {
   // dias deve ser inteiro e no minimo 1
   if (body.dias === undefined) {
     errors.push("O campo 'dias' e obrigatorio.");
-  } else if (typeof body.dias !== "number" || Number.isNaN(body.dias)) {
+  } else if (typeof body.dias !== 'number' || Number.isNaN(body.dias)) {
     errors.push("O campo 'dias' deve ser um numero inteiro.");
   } else if (!Number.isInteger(body.dias)) {
     errors.push("O campo 'dias' deve ser um numero inteiro.");
@@ -63,14 +63,14 @@ function validateTripPayload(body) {
   // status aceita apenas boolean
   if (body.status === undefined) {
     errors.push("O campo 'status' e obrigatorio.");
-  } else if (typeof body.status !== "boolean") {
+  } else if (typeof body.status !== 'boolean') {
     errors.push("O campo 'status' deve ser um boolean.");
   }
 
   if (errors.length > 0) {
     return {
       isValid: false,
-      errors
+      errors,
     };
   }
 
@@ -81,11 +81,11 @@ function validateTripPayload(body) {
       orcamento: body.orcamento,
       atividades: body.atividades.map((atividade) => atividade.trim()),
       dias: body.dias,
-      status: body.status
-    }
+      status: body.status,
+    },
   };
 }
 
 module.exports = {
-  validateTripPayload
+  validateTripPayload,
 };

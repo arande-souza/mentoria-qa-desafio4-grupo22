@@ -5,7 +5,13 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "node --watch app.js"
+    "dev": "node --watch app.js",
+    "test": "jest",
+    "test:json": "jest --runInBand --json --outputFile=reports/latest-run.json",
+    "history:save": "node scripts/save-history.js",
+    "history:dashboard": "node scripts/generate-dashboard.js",
+    "test:history": "node scripts/run-history.js",
+    "test:report": "jest --runInBand"
   },
   "keywords": [
     "node",
@@ -17,5 +23,13 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "allure-commandline": "^2.38.1",
+    "jest": "^30.3.0",
+    "jest-allure2-reporter": "^2.3.0",
+    "jest-html-reporters": "^3.1.7",
+    "prettier": "^3.8.1",
+    "supertest": "^7.2.2"
   }
 }

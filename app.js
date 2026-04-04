@@ -1,5 +1,5 @@
-const express = require("express");
-const { validateTripPayload } = require("./validation");
+const express = require('express');
+const { validateTripPayload } = require('./validation');
 
 const app = express();
 const PORT = 3000;
@@ -7,32 +7,30 @@ const PORT = 3000;
 app.use(express.json());
 
 const viagens = [];
-let nextId = 1;
+const nextId = { value: 1 };
 
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   return res.json({
-    message: "API de viagens dos sonhos",
-    version: "1.0.0",
+    message: 'API de viagens dos sonhos',
+    version: '1.0.0',
     routes: {
-      "GET /": "Informacoes da API",
-      "GET /viagens": "Listar todas as viagens",
-      "POST /viagens": "Criar uma nova viagem"
-    }
+      'GET /': 'Informacoes da API',
+      'GET /viagens': 'Listar todas as viagens',
+      'POST /viagens': 'Criar uma nova viagem',
+    },
   });
 });
 
 function findTripByDestination(destino) {
-  return viagens.find(
-    (viagem) => viagem.destino.toLowerCase() === destino.toLowerCase()
-  );
+  return viagens.find((viagem) => viagem.destino.toLowerCase() === destino.toLowerCase());
 }
 
-app.post("/viagens", (req, res) => {
+app.post('/viagens', (req, res) => {
   const validation = validateTripPayload(req.body);
 
   if (!validation.isValid) {
     return res.status(400).json({
-      errors: validation.errors
+      errors: validation.errors,
     });
   }
 
@@ -40,13 +38,13 @@ app.post("/viagens", (req, res) => {
 
   if (findTripByDestination(sanitizedData.destino)) {
     return res.status(409).json({
-      error: "Ja existe uma viagem cadastrada para esse destino."
+      error: 'Ja existe uma viagem cadastrada para esse destino.',
     });
   }
 
   const novaViagem = {
-    id: nextId++,
-    ...sanitizedData
+    id: nextId.value++,
+    ...sanitizedData,
   };
 
   viagens.push(novaViagem);
@@ -54,17 +52,17 @@ app.post("/viagens", (req, res) => {
   return res.status(201).json(novaViagem);
 });
 
-app.get("/viagens", (req, res) => {
-  const { sortBy = "id", order = "asc" } = req.query;
-  const allowedSortFields = ["id", "destino", "orcamento", "dias", "status"];
+app.get('/viagens', (req, res) => {
+  const { sortBy = 'id', order = 'asc' } = req.query;
+  const allowedSortFields = ['id', 'destino', 'orcamento', 'dias', 'status'];
 
   if (!allowedSortFields.includes(sortBy)) {
     return res.status(400).json({
-      error: `Campo sortBy invalido. Valores aceitos: ${allowedSortFields.join(", ")}`
+      error: `Campo sortBy invalido. Valores aceitos: ${allowedSortFields.join(', ')}`,
     });
   }
 
-  const normalizedOrder = order.toLowerCase() === "desc" ? "desc" : "asc";
+  const normalizedOrder = order.toLowerCase() === 'desc' ? 'desc' : 'asc';
 
   const sortedViagens = [...viagens].sort((a, b) => {
     const valueA = a[sortBy];
@@ -74,14 +72,12 @@ app.get("/viagens", (req, res) => {
     if (valueA == null) return 1;
     if (valueB == null) return -1;
 
-    if (typeof valueA === "string" && typeof valueB === "string") {
-      return normalizedOrder === "asc"
-        ? valueA.localeCompare(valueB, "pt-BR")
-        : valueB.localeCompare(valueA, "pt-BR");
+    if (typeof valueA === 'string' && typeof valueB === 'string') {
+      return normalizedOrder === 'asc' ? valueA.localeCompare(valueB, 'pt-BR') : valueB.localeCompare(valueA, 'pt-BR');
     }
 
-    if (valueA < valueB) return normalizedOrder === "asc" ? -1 : 1;
-    if (valueA > valueB) return normalizedOrder === "asc" ? 1 : -1;
+    if (valueA < valueB) return normalizedOrder === 'asc' ? -1 : 1;
+    if (valueA > valueB) return normalizedOrder === 'asc' ? 1 : -1;
     return 0;
   });
 
@@ -89,15 +85,19 @@ app.get("/viagens", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
     return res.status(400).json({
-      error: "JSON invalido no corpo da requisicao."
+      error: 'JSON invalido no corpo da requisicao.',
     });
   }
 
   return next(err);
 });
 
-app.listen(PORT, () => {
-  console.log(`API de viagens rodando em http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`API de viagens rodando em http://localhost:${PORT}`);
+  });
+}
+
+module.exports = { app, viagens, nextId };
