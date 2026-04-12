@@ -11,7 +11,7 @@
     "history:save": "node scripts/save-history.js",
     "history:dashboard": "node scripts/generate-dashboard.js",
     "test:history": "node scripts/run-history.js",
-    "test:report": "jest --runInBand"
+    "test:dash": "node scripts/run-history.js"
   },
   "keywords": [
     "node",

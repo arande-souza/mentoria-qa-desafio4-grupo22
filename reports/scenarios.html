@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cenários Atuais de Teste</title>
+  <style>
+    :root {
+      --bg: #120f1f;
+      --bg-accent-1: rgba(124, 58, 237, 0.20);
+      --bg-accent-2: rgba(168, 85, 247, 0.12);
+      --panel: #1c1730;
+      --panel-2: #241d3e;
+      --border: #34285a;
+      --text: #f5f7ff;
+      --muted: #b8b4d6;
+      --primary: #7c3aed;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --badge-bg: rgba(255, 255, 255, 0.04);
+      --header-bg: linear-gradient(135deg, rgba(124, 58, 237, 0.22), rgba(28, 23, 48, 0.96));
+      --toggle-bg: rgba(255, 255, 255, 0.08);
+      --toggle-hover: rgba(255, 255, 255, 0.14);
+      --heading-accent: #ddd6fe;
+    }
+
+    body[data-theme="light"] {
+      --bg: #f3efff;
+      --bg-accent-1: rgba(124, 58, 237, 0.14);
+      --bg-accent-2: rgba(168, 85, 247, 0.10);
+      --panel: #ffffff;
+      --panel-2: #ede7ff;
+      --border: #beaef7;
+      --text: #1e1446;
+      --muted: #53428e;
+      --primary: #6d28d9;
+      --shadow: 0 12px 32px rgba(64, 36, 133, 0.14);
+      --badge-bg: rgba(109, 40, 217, 0.07);
+      --header-bg: linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(255, 255, 255, 0.98));
+      --toggle-bg: rgba(109, 40, 217, 0.08);
+      --toggle-hover: rgba(109, 40, 217, 0.14);
+      --heading-accent: #4c1d95;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, var(--bg-accent-1), transparent 30%),
+        radial-gradient(circle at top left, var(--bg-accent-2), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    .header,
+    .group {
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .header {
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--toggle-bg);
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--toggle-hover);
+      transform: translateY(-1px);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--badge-bg);
+      color: var(--heading-accent);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .action-link:hover {
+      text-decoration: underline;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .summary-card {
+      padding: 18px 20px;
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .summary-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .summary-value {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .groups {
+      display: grid;
+      gap: 20px;
+    }
+
+    .group {
+      padding: 20px;
+    }
+
+    .scenario-list {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    .scenario-list li {
+      margin-bottom: 12px;
+      line-height: 1.5;
+      font-size: 17px;
+    }
+
+    .scenario-code {
+      color: var(--heading-accent);
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 16px;
+      }
+
+      .header {
+        padding: 16px;
+      }
+
+      .header-top {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="header">
+    <div class="header-top">
+      <div>
+        <h1>Cenários Atuais de Teste</h1>
+        <p>Lista de casos de teste funcionais cobertos atualmente no fluxo automatizado.</p>
+      </div>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Alternar tema">
+        <span id="themeIcon">🌙</span>
+        <span id="themeLabel">Modo escuro</span>
+      </button>
+    </div>
+
+    <div class="actions">
+      <a class="action-link" href="./dashboard.html">← Voltar para o dashboard</a>
+    </div>
+  </section>
+
+  <section class="summary">
+    <div class="summary-card">
+      <span class="summary-label">Total de cenários</span>
+      <span class="summary-value">19</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-label">Grupos de validação</span>
+      <span class="summary-value">8</span>
+    </div>
+  </section>
+
+  <section class="groups">
+    
+      <article class="group">
+        <h2>Cenários Gerais da API</h2>
+        <ol class="scenario-list">
+          <li><span class="scenario-code">CT17</span> - deve criar uma nova viagem com dados validos</li>
+        </ol>
+      </article>
+    
+      <article class="group">
+        <h2>Validação de Destino Duplicado</h2>
+        <ol class="scenario-list">
+          <li><span class="scenario-code">CT04</span> - deve retornar erro 409 para destino duplicado</li>
+        </ol>
+      </article>
+    
+      <article class="group">
+        <h2>Validação de Status (Realizada)</h2>
+        <ol class="scenario-list">
+          <li><span class="scenario-code">CT11</span> - deve retornar sucesso para status viagem realizada = false</li><li><span class="scenario-code">CT12</span> - deve retornar sucesso para status viagem realizada = true</li>
+        </ol>
+      </article>
+    
+      <article class="group">
+        <h2>Validação de Campos Obrigatórios</h2>
+        <ol class="scenario-list">
+          <li><span class="scenario-code">CT16</span> - deve retornar erros ao enviar campos vazios</li>
+        </ol>
+      </article>
+    
+      <article class="group">
+        <h2>Validação de Campo Destino (Caracteres)</h2>
+        <ol class="scenario-list">
+          <li><span class="scenario-code">CT01</span> - deve validar destino com 49 caracteres</li><li><span class="scenario-code">CT02</span> - deve validar destino com 50 caracteres</li><li><span class="scenario-code">CT03</span> - deve validar destino com 51 caracteres</li>
+        </ol>
+      </article>
+    
+      <article class="group">
+        <h2>Validação de Orçamento</h2>
+        <ol class="scenario-list">
+          <li><span class="scenario-code">CT05</span> - deve validar orcamento de -1 reais</li><li><span class="scenario-code">CT06</span> - deve validar orcamento de 0 reais</li><li><span class="scenario-code">CT07</span> - deve validar orcamento de 0.01 reais</li>
+        </ol>
+      </article>
+    
+      <article class="group">
+        <h2>Validação de Duração da Viagem (Dias)</h2>
+        <ol class="scenario-list">
+          <li><span class="scenario-code">CT08</span> - deve validar dias = 0</li><li><span class="scenario-code">CT09</span> - deve validar dias = 1</li><li><span class="scenario-code">CT10</span> - deve validar dias = 2</li>
+        </ol>
+      </article>
+    
+      <article class="group">
+        <h2>Validação da Lista de Atividades</h2>
+        <ol class="scenario-list">
+          <li><span class="scenario-code">CT13</span> - deve validar cadastro com 9 atividades</li><li><span class="scenario-code">CT14</span> - deve validar cadastro com 10 atividades</li><li><span class="scenario-code">CT15</span> - deve validar cadastro com 11 atividades</li><li><span class="scenario-code">CT18</span> - deve validar cadastro com 0 atividades</li><li><span class="scenario-code">CT19</span> - deve validar cadastro com 1 atividades</li>
+        </ol>
+      </article>
+    
+  </section>
+
+  <script>
+    const root = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeLabel = document.getElementById('themeLabel');
+    const savedTheme = localStorage.getItem('dashboard-theme') || 'dark';
+
+    function updateThemeButton(theme) {
+      if (theme === 'light') {
+        themeIcon.textContent = '☀️';
+        themeLabel.textContent = 'Modo claro';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeLabel.textContent = 'Modo escuro';
+      }
+    }
+
+    function applyTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem('dashboard-theme', theme);
+      updateThemeButton(theme);
+    }
+
+    applyTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const nextTheme =
+        root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(nextTheme);
+    });
+  </script>
+</body>
+</html>

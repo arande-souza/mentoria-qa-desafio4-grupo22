@@ -37,6 +37,19 @@
       --toggle-bg: rgba(255, 255, 255, 0.08);
       --toggle-hover: rgba(255, 255, 255, 0.14);
       --heading-accent: #ddd6fe;
+      --font-size-title: 34px;
+      --font-size-section-title: 28px;
+      --font-size-panel-title: 22px;
+      --font-size-body: 18px;
+      --font-size-body-sm: 17px;
+      --font-size-label: 15px;
+      --font-size-caption: 14px;
+      --font-size-metric: 18px;
+      --font-size-card-value: 30px;
+      --font-size-table: 18px;
+      --font-size-table-head: 15px;
+      --font-size-toggle: 15px;
+      --font-size-toggle-icon: 18px;
     }
 
     body[data-theme="light"] {
@@ -92,6 +105,18 @@
       color: var(--text);
     }
 
+    h1 {
+      font-size: var(--font-size-title);
+    }
+
+    h2 {
+      font-size: var(--font-size-section-title);
+    }
+
+    h3 {
+      font-size: var(--font-size-panel-title);
+    }
+
     .header {
       margin-bottom: 24px;
       padding: 24px;
@@ -111,7 +136,7 @@
     .header p {
       margin: 8px 0 0;
       color: var(--muted);
-      font-size: 15px;
+      font-size: var(--font-size-body-sm);
     }
 
     .theme-toggle {
@@ -133,12 +158,12 @@
     }
 
     .theme-icon {
-      font-size: 16px;
+      font-size: var(--font-size-toggle-icon);
       line-height: 1;
     }
 
     .theme-label {
-      font-size: 13px;
+      font-size: var(--font-size-toggle);
       font-weight: bold;
       color: var(--muted);
     }
@@ -161,7 +186,7 @@
 
     .meta-label {
       display: block;
-      font-size: 12px;
+      font-size: var(--font-size-caption);
       color: var(--muted);
       margin-bottom: 6px;
       text-transform: uppercase;
@@ -169,8 +194,22 @@
     }
 
     .meta-value {
-      font-size: 16px;
+      font-size: var(--font-size-metric);
       font-weight: bold;
+    }
+
+    .meta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      color: var(--heading-accent);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .meta-link:hover {
+      text-decoration: underline;
     }
 
     .cards {
@@ -189,7 +228,7 @@
     }
 
     .card-title {
-      font-size: 13px;
+      font-size: var(--font-size-label);
       color: var(--muted);
       margin-bottom: 8px;
       text-transform: uppercase;
@@ -197,14 +236,14 @@
     }
 
     .card-value {
-      font-size: 28px;
+      font-size: var(--font-size-card-value);
       font-weight: bold;
       color: var(--text);
     }
 
     .card-sub {
       margin-top: 8px;
-      font-size: 13px;
+      font-size: var(--font-size-label);
       color: var(--muted);
     }
 
@@ -229,6 +268,7 @@
 
     table {
       width: 100%;
+      font-size: var(--font-size-table);
       border-collapse: collapse;
       overflow: hidden;
       border-radius: 16px;
@@ -254,7 +294,7 @@
     }
 
     th {
-      font-size: 13px;
+      font-size: var(--font-size-table-head);
       color: var(--table-header-text);
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -288,6 +328,207 @@
         flex-direction: column;
         align-items: stretch;
       }
+
+      .execution-meta {
+        gap: 12px;
+      }
+
+      .meta-badge {
+        min-width: 180px;
+        padding: 10px 12px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+      }
+
+      .card {
+        padding: 16px 18px;
+      }
+
+      .card-value {
+        font-size: 26px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+
+      .header {
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+
+      .header-top {
+        gap: 12px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .header p {
+        font-size: 16px;
+      }
+
+      .execution-meta {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .meta-badge {
+        min-width: unset;
+        width: 100%;
+        padding: 12px 16px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .card {
+        padding: 16px;
+        text-align: center;
+      }
+
+      .card-value {
+        font-size: 34px;
+      }
+
+      .charts {
+        gap: 16px;
+      }
+
+      .panel {
+        padding: 16px;
+      }
+
+      .panel h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+      }
+
+      table {
+        font-size: 16px;
+      }
+
+      th,
+      td {
+        padding: 10px 8px;
+      }
+
+      .theme-toggle {
+        padding: 8px 12px;
+        font-size: 16px;
+      }
+
+      .theme-icon {
+        font-size: 16px;
+      }
+
+      .theme-label {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 8px;
+      }
+
+      .header {
+        padding: 12px;
+        border-radius: 12px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .header p {
+        font-size: 15px;
+      }
+
+      .execution-meta {
+        gap: 6px;
+      }
+
+      .meta-badge {
+        padding: 10px 12px;
+      }
+
+      .meta-label {
+        font-size: 13px;
+      }
+
+      .meta-value {
+        font-size: 16px;
+      }
+
+      .cards {
+        gap: 8px;
+      }
+
+      .card {
+        padding: 12px;
+        border-radius: 12px;
+      }
+
+      .card-title {
+        font-size: 14px;
+      }
+
+      .card-value {
+        font-size: 30px;
+      }
+
+      .card-sub {
+        font-size: 14px;
+      }
+
+      .charts {
+        gap: 12px;
+      }
+
+      .panel {
+        padding: 12px;
+        border-radius: 12px;
+      }
+
+      .panel h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      table {
+        font-size: 14px;
+        overflow-x: auto;
+        display: block;
+        white-space: nowrap;
+      }
+
+      th,
+      td {
+        padding: 8px 6px;
+        min-width: 80px;
+      }
+
+      .theme-toggle {
+        padding: 6px 10px;
+      }
+
+      .theme-icon {
+        font-size: 14px;
+      }
+
+      .theme-label {
+        font-size: 13px;
+      }
     }
   </style>
 </head>
@@ -311,11 +552,20 @@
       </div>
       <div class="meta-badge">
         <span class="meta-label">Data da Última Execução</span>
-        <span class="meta-value">03/04/2026, 22:48:01</span>
+        <span class="meta-value">12/04/2026, 18:08:49</span>
       </div>
       <div class="meta-badge">
         <span class="meta-label">Tempo da Última Execução</span>
-        <span class="meta-value">440 ms</span>
+        <span class="meta-value">479 ms</span>
+      </div>
+      <div class="meta-badge">
+        <span class="meta-label">Quantidade de Testes Atual</span>
+        <span class="meta-value">19 testes</span>
+      </div>
+      <div class="meta-badge">
+        <span class="meta-label">Acesse os Cenários Atuais</span>
+        <span class="meta-value">19 cenários</span>
+        <a class="meta-link" href="./scenarios.html">Abrir página de cenários →</a>
       </div>
     </div>
   </section>
@@ -323,19 +573,19 @@
   <section class="cards">
     <div class="card">
       <div class="card-title">Total de Execuções</div>
-      <div class="card-value">24</div>
+      <div class="card-value">36</div>
       <div class="card-sub">Quantidade acumulada de runs</div>
     </div>
 
     <div class="card">
       <div class="card-title">Média de Sucesso</div>
-      <div class="card-value">97.61%</div>
+      <div class="card-value">98.41%</div>
       <div class="card-sub">Percentual médio de testes aprovados</div>
     </div>
 
     <div class="card">
       <div class="card-title">Tempo Médio</div>
-      <div class="card-value">540 ms</div>
+      <div class="card-value">518 ms</div>
       <div class="card-sub">Duração média por execução</div>
     </div>
 
@@ -373,6 +623,126 @@
         </tr>
       </thead>
       <tbody>
+        
+        <tr>
+          <td>36</td>
+          <td>12/04/2026, 18:08:49</td>
+          <td>19</td>
+          <td class="success">19</td>
+          <td class="danger">0</td>
+          <td>100%</td>
+          <td>479 ms</td>
+        </tr>
+        
+        <tr>
+          <td>35</td>
+          <td>12/04/2026, 18:07:08</td>
+          <td>19</td>
+          <td class="success">19</td>
+          <td class="danger">0</td>
+          <td>100%</td>
+          <td>575 ms</td>
+        </tr>
+        
+        <tr>
+          <td>34</td>
+          <td>12/04/2026, 18:04:14</td>
+          <td>19</td>
+          <td class="success">19</td>
+          <td class="danger">0</td>
+          <td>100%</td>
+          <td>440 ms</td>
+        </tr>
+        
+        <tr>
+          <td>33</td>
+          <td>12/04/2026, 18:03:59</td>
+          <td>19</td>
+          <td class="success">19</td>
+          <td class="danger">0</td>
+          <td>100%</td>
+          <td>451 ms</td>
+        </tr>
+        
+        <tr>
+          <td>32</td>
+          <td>12/04/2026, 18:03:21</td>
+          <td>19</td>
+          <td class="success">19</td>
+          <td class="danger">0</td>
+          <td>100%</td>
+          <td>454 ms</td>
+        </tr>
+        
+        <tr>
+          <td>31</td>
+          <td>12/04/2026, 18:02:36</td>
+          <td>19</td>
+          <td class="success">19</td>
+          <td class="danger">0</td>
+          <td>100%</td>
+          <td>430 ms</td>
+        </tr>
+        
+        <tr>
+          <td>30</td>
+          <td>12/04/2026, 17:57:58</td>
+          <td>19</td>
+          <td class="success">19</td>
+          <td class="danger">0</td>
+          <td>100%</td>
+          <td>480 ms</td>
+        </tr>
+        
+        <tr>
+          <td>29</td>
+          <td>12/04/2026, 17:09:52</td>
+          <td>19</td>
+          <td class="success">19</td>
+          <td class="danger">0</td>
+          <td>100%</td>
+          <td>638 ms</td>
+        </tr>
+        
+        <tr>
+          <td>28</td>
+          <td>12/04/2026, 17:08:07</td>
+          <td>18</td>
+          <td class="success">18</td>
+          <td class="danger">0</td>
+          <td>100%</td>
+          <td>465 ms</td>
+        </tr>
+        
+        <tr>
+          <td>27</td>
+          <td>12/04/2026, 17:04:30</td>
+          <td>18</td>
+          <td class="success">18</td>
+          <td class="danger">0</td>
+          <td>100%</td>
+          <td>405 ms</td>
+        </tr>
+        
+        <tr>
+          <td>26</td>
+          <td>12/04/2026, 17:01:10</td>
+          <td>18</td>
+          <td class="success">18</td>
+          <td class="danger">0</td>
+          <td>100%</td>
+          <td>424 ms</td>
+        </tr>
+        
+        <tr>
+          <td>25</td>
+          <td>12/04/2026, 16:59:16</td>
+          <td>11</td>
+          <td class="success">11</td>
+          <td class="danger">0</td>
+          <td>100%</td>
+          <td>440 ms</td>
+        </tr>
         
         <tr>
           <td>24</td>
@@ -619,10 +989,10 @@
   </section>
 
   <script>
-    const labels = ["Execução 1","Execução 2","Execução 3","Execução 4","Execução 5","Execução 6","Execução 7","Execução 8","Execução 9","Execução 10","Execução 11","Execução 12","Execução 13","Execução 14","Execução 15","Execução 16","Execução 17","Execução 18","Execução 19","Execução 20","Execução 21","Execução 22","Execução 23","Execução 24"];
-    const durations = [681,484,596,456,764,531,528,538,498,473,741,578,482,453,496,464,467,518,459,552,493,719,549,440];
-    const successRates = [100,100,100,100,100,100,100,100,100,100,100,100,100,90.91,100,100,100,100,100,90.91,90.91,70,100,100];
-    const executionDates = ["03/04/2026, 20:03:22","03/04/2026, 20:03:26","03/04/2026, 20:07:17","03/04/2026, 20:08:42","03/04/2026, 20:54:50","03/04/2026, 20:55:55","03/04/2026, 20:56:57","03/04/2026, 20:57:12","03/04/2026, 20:59:48","03/04/2026, 21:00:36","03/04/2026, 21:59:15","03/04/2026, 22:04:49","03/04/2026, 22:10:29","03/04/2026, 22:20:58","03/04/2026, 22:21:30","03/04/2026, 22:30:30","03/04/2026, 22:30:56","03/04/2026, 22:32:50","03/04/2026, 22:33:12","03/04/2026, 22:33:55","03/04/2026, 22:37:49","03/04/2026, 22:46:11","03/04/2026, 22:46:47","03/04/2026, 22:48:01"];
+    const labels = ["Execução 1","Execução 2","Execução 3","Execução 4","Execução 5","Execução 6","Execução 7","Execução 8","Execução 9","Execução 10","Execução 11","Execução 12","Execução 13","Execução 14","Execução 15","Execução 16","Execução 17","Execução 18","Execução 19","Execução 20","Execução 21","Execução 22","Execução 23","Execução 24","Execução 25","Execução 26","Execução 27","Execução 28","Execução 29","Execução 30","Execução 31","Execução 32","Execução 33","Execução 34","Execução 35","Execução 36"];
+    const durations = [681,484,596,456,764,531,528,538,498,473,741,578,482,453,496,464,467,518,459,552,493,719,549,440,440,424,405,465,638,480,430,454,451,440,575,479];
+    const successRates = [100,100,100,100,100,100,100,100,100,100,100,100,100,90.91,100,100,100,100,100,90.91,90.91,70,100,100,100,100,100,100,100,100,100,100,100,100,100,100];
+    const executionDates = ["03/04/2026, 20:03:22","03/04/2026, 20:03:26","03/04/2026, 20:07:17","03/04/2026, 20:08:42","03/04/2026, 20:54:50","03/04/2026, 20:55:55","03/04/2026, 20:56:57","03/04/2026, 20:57:12","03/04/2026, 20:59:48","03/04/2026, 21:00:36","03/04/2026, 21:59:15","03/04/2026, 22:04:49","03/04/2026, 22:10:29","03/04/2026, 22:20:58","03/04/2026, 22:21:30","03/04/2026, 22:30:30","03/04/2026, 22:30:56","03/04/2026, 22:32:50","03/04/2026, 22:33:12","03/04/2026, 22:33:55","03/04/2026, 22:37:49","03/04/2026, 22:46:11","03/04/2026, 22:46:47","03/04/2026, 22:48:01","12/04/2026, 16:59:16","12/04/2026, 17:01:10","12/04/2026, 17:04:30","12/04/2026, 17:08:07","12/04/2026, 17:09:52","12/04/2026, 17:57:58","12/04/2026, 18:02:36","12/04/2026, 18:03:21","12/04/2026, 18:03:59","12/04/2026, 18:04:14","12/04/2026, 18:07:08","12/04/2026, 18:08:49"];
 
     const root = document.body;
     const themeToggle = document.getElementById('themeToggle');
