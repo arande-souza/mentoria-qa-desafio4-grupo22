@@ -155,5 +155,13 @@ curl -X POST http://localhost:3000/viagens \
 ## Dashboar Histórico de execução
 <img width="850" height="900" alt="Teste " src="https://github.com/user-attachments/assets/98540fdd-4e80-4fb2-9bb9-ef4ad98a59be" />
 
+## Participantes 
+- Arandê Souza |  arande89@gmail.com
+- Aimeê | aimeeas@gmail.com
+- Fabiano Pereira | 
+- Jaciara | Jaciara_mjss@hotmail.com
+- Ricardo Albuquerque | r.albuquerquem@gmail.com
+
+
 
 
