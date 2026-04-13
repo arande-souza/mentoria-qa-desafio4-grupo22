@@ -37,51 +37,25 @@ Este projeto serve como base para prática de:
 ## 📁 Estrutura do projeto
 
 ```text
-src/
-  app.js
-  controllers/
-    viagemController.js
-  routes/
-    viagemRoutes.js
-  services/
-    viagemService.js
-  validations/
-    viagem.validation.js
-
-resources/
-  swagger/
-    swagger.js
-
-docs/
-  Postman/
-    viagens.postman_collection.json
-
-tests/
-  e2e/
-    viagens.test.js
-  fixtures/
-    viagem.fixture.js
-
-scripts/
-reports/
-package.json
-README.md
+mentoria-qa-desafio4-grupo22/
+├── src/                # código-fonte da aplicação
+│   ├── app.js          # configuração principal do Express
+│   ├── controllers/    # camada de controle das requisições
+│   ├── routes/         # definição das rotas da API
+│   ├── services/       # regras de negócio
+│   └── validations/    # validações de entrada
+├── resources/          # recursos utilizados pela aplicação
+│   └── swagger/        # configuração da documentação Swagger
+├── docs/               # documentação de apoio
+│   └── Postman/        # collection para testes manuais
+├── tests/              # testes automatizados
+│   ├── e2e/            # cenários end-to-end da API
+│   └── fixtures/       # massa de dados reutilizável
+├── scripts/            # scripts auxiliares
+├── reports/            # relatórios de execução
+├── package.json        # dependências e scripts do projeto
+└── README.md           # documentação principal
 ```
-
----
-
-## 💡 Arquitetura
-
-- `src/app.js`: configura o Express, middlewares, Swagger, rotas e exporta o app
-- `controllers`: camada responsável pela entrada e saída HTTP
-- `services`: regras de negócio e persistência em memória
-- `validations`: validação e sanitização do payload
-- `tests/e2e`: cenários end-to-end com Supertest
-- `tests/fixtures`: massa de dados reutilizável
-- `resources/swagger`: configuração da documentação OpenAPI
-- `docs/Postman`: collection para execução via Newman
-- `reports`: evidências e histórico das execuções
-
 ---
 
 ## ⚙️ Como rodar o projeto
@@ -139,23 +113,20 @@ Endpoints documentados:
 Executa a suíte principal:
 
 ```bash
-npm test
+npm test 
+
 ```
-
-Gera resultado em JSON:
-
 ```bash
-npm run test:json
+npm run test
+
 ```
 
 Os testes usam Supertest diretamente sobre o app da aplicação, preservando os contratos da API.
 
-### Histórico e dashboard
+### Executar e gerar dashboard
 
 ```bash
-npm run history:save
-npm run history:dashboard
-npm run test:history
+npm run history:dash
 ```
 
 ### Postman / Newman
@@ -237,17 +208,6 @@ Cria uma nova viagem.
 }
 
 ```
-
-### GET /viagens
-
-Lista todas as viagens cadastradas em memória.
-
-Também aceita ordenação via query params:
-
-- `sortBy=id|destino|orcamento|dias|status`
-- `order=asc|desc`
-
----
 
 ## 📏 Regras implementadas
 
