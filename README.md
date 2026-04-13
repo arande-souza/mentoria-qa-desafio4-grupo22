@@ -153,7 +153,24 @@ curl -X POST http://localhost:3000/viagens \
   -d "{\"destino\":\"Japão\",\"orcamento\":15000,\"atividades\":[\"Templos\",\"Anime\",\"Culinaria\"],\"dias\":15,\"status\":false}"
 ```
 ## Dashboar Histórico de execução
-<img width="850" height="900" alt="Teste " src="https://github.com/user-attachments/assets/98540fdd-4e80-4fb2-9bb9-ef4ad98a59be" />
+<img width="1920" height="1334" alt="Designer" src="https://github.com/user-attachments/assets/4cfd41d4-4496-422e-9fc7-92e48685ced5" />
+
+### Cenários
+<img width="1920" height="1926" alt="image" src="https://github.com/user-attachments/assets/b15ab49d-9bc9-49b9-9760-c351ae17ff87" />
+
+
+
+
+
+
+
+## Participantes 
+- Arandê Souza |  arande89@gmail.com
+- Aimeê | aimeeas@gmail.com
+- Fabiano Pereira | 
+- Jaciara | Jaciara_mjss@hotmail.com
+- Ricardo Albuquerque | r.albuquerquem@gmail.com
+
 
 
 
