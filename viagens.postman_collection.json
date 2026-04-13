@@ -1,0 +1,702 @@
+{
+  "info": {
+    "name": "API Viagens - Testes Automatizados",
+    "_postman_id": "viagens-collection-completa",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Collection baseada nos testes Jest da API de Viagens."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "00 - Setup",
+      "item": [
+        {
+          "name": "Limpar variáveis de execução",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/"
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "pm.collectionVariables.unset('destinoDuplicado');"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Setup executado', function () {",
+                  "  pm.expect(true).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "01 - Cenários principais",
+      "item": [
+        {
+          "name": "CT17 - deve criar uma nova viagem com dados validos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Paris, Franca\",\n  \"orcamento\": 5000,\n  \"atividades\": [\"Visitar a Torre Eiffel\", \"Passear pelo Louvre\"],\n  \"dias\": 7,\n  \"status\": true\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "const json = pm.response.json();",
+                  "",
+                  "pm.test('Response deve ter id numérico', function () {",
+                  "  pm.expect(json).to.have.property('id');",
+                  "  pm.expect(json.id).to.be.a('number');",
+                  "});",
+                  "",
+                  "pm.test('Campos retornados devem estar corretos', function () {",
+                  "  pm.expect(json.destino).to.eql('Paris, Franca');",
+                  "  pm.expect(json.orcamento).to.eql(5000);",
+                  "  pm.expect(json.atividades).to.eql(['Visitar a Torre Eiffel', 'Passear pelo Louvre']);",
+                  "  pm.expect(json.dias).to.eql(7);",
+                  "  pm.expect(json.status).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT11 - deve retornar sucesso para status viagem realizada = false",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Viagem ainda nao realizada Teste\",\n  \"orcamento\": 10,\n  \"atividades\": [\"Atividade Teste\"],\n  \"dias\": 5,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "pm.test('Status retornado deve ser false', function () {",
+                  "  pm.expect(json.status).to.eql(false);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT12 - deve retornar sucesso para status viagem realizada = true",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Viagem realizada Teste\",\n  \"orcamento\": 10,\n  \"atividades\": [\"Atividade Teste\"],\n  \"dias\": 5,\n  \"status\": true\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "pm.test('Status retornado deve ser true', function () {",
+                  "  pm.expect(json.status).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT16 - deve retornar erros ao enviar campos vazios",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"\",\n  \"orcamento\": null,\n  \"atividades\": [],\n  \"dias\": null,\n  \"status\": null\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 400', function () {",
+                  "  pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "const json = pm.response.json();",
+                  "",
+                  "pm.test('Response deve conter errors como array', function () {",
+                  "  pm.expect(json).to.have.property('errors');",
+                  "  pm.expect(json.errors).to.be.an('array');",
+                  "});",
+                  "",
+                  "pm.test('Deve conter os erros esperados', function () {",
+                  "  pm.expect(json.errors).to.include(\"O campo 'destino' nao pode ser vazio.\");",
+                  "  pm.expect(json.errors).to.include(\"O campo 'orcamento' deve ser um numero valido.\");",
+                  "  pm.expect(json.errors).to.include(\"O campo 'atividades' deve conter entre 1 e 10 itens.\");",
+                  "  pm.expect(json.errors).to.include(\"O campo 'dias' deve ser um numero inteiro.\");",
+                  "  pm.expect(json.errors).to.include(\"O campo 'status' deve ser um boolean.\");",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02 - Duplicidade",
+      "item": [
+        {
+          "name": "CT04 - passo 1 - criar destino base",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Destino Duplicado Teste\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Visitar a Torre Eiffel\"],\n  \"dias\": 5,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Primeira criação deve retornar 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "pm.collectionVariables.set('destinoDuplicado', 'Destino Duplicado Teste');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT04 - passo 2 - deve retornar erro 409 para destino duplicado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"{{destinoDuplicado}}\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Visitar a Torre Eiffel\"],\n  \"dias\": 5,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 409', function () {",
+                  "  pm.response.to.have.status(409);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "pm.test('Mensagem de erro deve estar correta', function () {",
+                  "  pm.expect(json.error).to.eql('Ja existe uma viagem cadastrada para esse destino.');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03 - BVA destino",
+      "item": [
+        {
+          "name": "CT01 - deve validar destino com 49 caracteres",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT02 - deve validar destino com 50 caracteres",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT03 - deve validar destino com 51 caracteres",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 400', function () {",
+                  "  pm.response.to.have.status(400);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04 - BVA orçamento",
+      "item": [
+        {
+          "name": "CT05 - deve validar orcamento de -1 reais",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Destino-Orcamento-2\",\n  \"orcamento\": -1,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 400', function () {",
+                  "  pm.response.to.have.status(400);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT06 - deve validar orcamento de 0 reais",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Destino-Orcamento-0\",\n  \"orcamento\": 0,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 400', function () {",
+                  "  pm.response.to.have.status(400);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT07 - deve validar orcamento de 0.01 reais",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Destino-Orcamento-1\",\n  \"orcamento\": 0.01,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "05 - BVA dias",
+      "item": [
+        {
+          "name": "CT08 - deve validar dias = 0",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Destino-Dias-0\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 0,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 400', function () {",
+                  "  pm.response.to.have.status(400);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT09 - deve validar dias = 1",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Destino-Dias-1\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT10 - deve validar dias = 2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Destino-Dias-2\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 2,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "06 - BVA atividades",
+      "item": [
+        {
+          "name": "CT18 - deve validar cadastro com 0 atividades",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Destino-0\",\n  \"orcamento\": 1000,\n  \"atividades\": [],\n  \"dias\": 5,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 400', function () {",
+                  "  pm.response.to.have.status(400);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT19 - deve validar cadastro com 1 atividade",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Destino-1\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Atividade 1\"],\n  \"dias\": 5,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT13 - deve validar cadastro com 9 atividades",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Destino-2\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Atividade 1\", \"Atividade 2\", \"Atividade 3\", \"Atividade 4\", \"Atividade 5\", \"Atividade 6\", \"Atividade 7\", \"Atividade 8\", \"Atividade 9\"],\n  \"dias\": 5,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT14 - deve validar cadastro com 10 atividades",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Destino-3\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Atividade 1\", \"Atividade 2\", \"Atividade 3\", \"Atividade 4\", \"Atividade 5\", \"Atividade 6\", \"Atividade 7\", \"Atividade 8\", \"Atividade 9\", \"Atividade 10\"],\n  \"dias\": 5,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "CT15 - deve validar cadastro com 11 atividades",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/viagens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destino\": \"Destino-4\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Atividade 1\", \"Atividade 2\", \"Atividade 3\", \"Atividade 4\", \"Atividade 5\", \"Atividade 6\", \"Atividade 7\", \"Atividade 8\", \"Atividade 9\", \"Atividade 10\", \"Atividade 11\"],\n  \"dias\": 5,\n  \"status\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status deve ser 400', function () {",
+                  "  pm.response.to.have.status(400);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

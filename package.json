@@ -11,7 +11,8 @@
     "history:save": "node scripts/save-history.js",
     "history:dashboard": "node scripts/generate-dashboard.js",
     "test:history": "node scripts/run-history.js",
-    "test:dash": "node scripts/run-history.js"
+    "test:dash": "node scripts/run-history.js",
+    "test:postman": "newman run viagens.postman_collection.json -r \"cli,htmlextra\" --reporter-htmlextra-export reports/newman-report.html"
   },
   "keywords": [
     "node",

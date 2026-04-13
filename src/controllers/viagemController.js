@@ -1,5 +1,5 @@
 const viagemService = require('../services/viagemService');
-const { validateTripPayload } = require('../validations/tripValidation');
+const { validateTripPayload } = require('../validations/viagem.validation');
 
 function getApiInfo(req, res) {
   return res.json({

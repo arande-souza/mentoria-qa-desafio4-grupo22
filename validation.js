@@ -1,1 +1,1 @@
-module.exports = require('./src/validations/tripValidation');
+module.exports = require('./src/validations/viagem.validation');

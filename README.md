@@ -2,17 +2,17 @@
 
 API REST desenvolvida em Node.js + Express para cadastro de viagens dos sonhos.
 
-O projeto foi estruturado para servir como base de testes automatizados de API com Jest e Supertest, cobrindo cenarios positivos, negativos, validacoes e regras de negocio.
+O projeto foi organizado para manter a API simples, mas com uma estrutura profissional para backend e QA, incluindo testes automatizados com Jest + Supertest, documentacao Swagger e apoio a execucoes com Newman.
 
 ## Objetivo
 
-Esta API foi criada para apoiar estudos e pratica de:
+Este projeto serve como base para pratica de:
 
-- testes automatizados de API com Supertest
-- validacao de contratos de request/response
-- cobertura de cenarios positivos e negativos
-- validacao de regras de negocio
-- organizacao de projeto com separacao de responsabilidades
+- testes automatizados de API
+- validacao de contratos e regras de negocio
+- organizacao de backend por responsabilidade
+- documentacao de endpoints
+- geracao de evidencias de execucao
 
 ## Tecnologias
 
@@ -22,31 +22,48 @@ Esta API foi criada para apoiar estudos e pratica de:
 - Supertest
 - Swagger UI Express
 - Swagger JSDoc
+- Newman
 
 ## Estrutura do projeto
 
 ```text
 src/
   app.js
-  routes/
   controllers/
+    viagemController.js
+  routes/
+    viagemRoutes.js
   services/
+    viagemService.js
   validations/
+    viagem.validation.js
 
-resources/
+docs/
   swagger/
     swagger.js
 
 tests/
+  app.test.js
+  fixtures/
+    viagem.fixture.js
+
+scripts/
+reports/
+app.js
+validation.js
+package.json
 ```
 
 ## Arquitetura
 
-- `routes`: definicao dos endpoints
-- `controllers`: fluxo HTTP de entrada e saida
+- `app.js` na raiz: bootstrap da aplicacao e compatibilidade com a execucao local
+- `src/app.js`: configuracao do Express, middlewares, Swagger, rotas e exportacao do app
+- `controllers`: controle de entrada e saida HTTP
 - `services`: regras de negocio e persistencia em memoria
-- `validations`: validacao de payload
-- `src/app.js`: configuracao do Express, middlewares, rotas e exportacao do app
+- `validations`: validacao e sanitizacao do payload
+- `tests/fixtures`: dados reutilizaveis para os testes
+- `docs/swagger`: configuracao da documentacao OpenAPI
+- `reports`: evidencias e historico das execucoes
 
 ## Como rodar o projeto
 
@@ -67,10 +84,16 @@ npm install
 npm start
 ```
 
-A aplicacao sera iniciada em:
+A API sera iniciada em:
 
 ```text
 http://localhost:3000
+```
+
+### Modo desenvolvimento
+
+```bash
+npm run dev
 ```
 
 ## Swagger
@@ -81,20 +104,91 @@ Com a API em execucao, acesse:
 http://localhost:3000/docs
 ```
 
-O Swagger documenta os endpoints:
+Endpoints documentados:
 
 - `POST /viagens`
 - `GET /viagens`
 
-## Testes
+## Testes automatizados
 
-Para executar os testes automatizados:
+### Jest + Supertest
+
+Executa a suite principal:
 
 ```bash
 npm test
 ```
 
-Os testes usam Supertest e continuam consumindo a aplicacao sem precisar alterar os contratos da API.
+Gera resultado em JSON:
+
+```bash
+npm run test:json
+```
+
+Os testes usam Supertest diretamente sobre o app da aplicacao, preservando os contratos da API.
+
+### Historico e dashboard
+
+```bash
+npm run history:save
+npm run history:dashboard
+npm run test:history
+```
+
+### Postman / Newman
+
+Executa a collection Postman e gera relatorio HTML:
+
+```bash
+npm run test:postman
+```
+
+Relatorio gerado em:
+
+```text
+reports/newman-report.html
+```
+
+### Collection Postman
+
+O projeto possui a collection:
+
+```text
+viagens.postman_collection.json
+```
+
+Ela pode ser executada via Newman usando o script ja configurado no `package.json`.
+
+#### Como executar
+
+1. Inicie a API:
+
+```bash
+npm start
+```
+
+2. Em outro terminal, rode a collection com report HTML:
+
+```bash
+npm run test:postman
+```
+
+Esse comando executa o script abaixo do `package.json`:
+
+```bash
+newman run viagens.postman_collection.json -r "cli,htmlextra" --reporter-htmlextra-export reports/newman-report.html
+```
+
+#### Resultado da execucao
+
+- saida no terminal com o reporter `cli`
+- relatorio HTML gerado em `reports/newman-report.html`
+
+#### Quando usar
+
+- validar a collection fora do Jest
+- gerar evidencia visual de execucao
+- compartilhar o resultado dos testes com o time
 
 ## Endpoints
 
@@ -166,13 +260,14 @@ A API utiliza persistencia em memoria. Isso torna o projeto leve e adequado para
 - simulacao de cenarios
 - estudos de automacao de API
 
-## Dashboard historico de execucao
+## Evidencias
 
-<img width="1920" height="1334" alt="Designer" src="https://github.com/user-attachments/assets/4cfd41d4-4496-422e-9fc7-92e48685ced5" />
+Arquivos de apoio e evidencias ficam em `reports/`, incluindo:
 
-### Cenarios
-
-<img width="1920" height="1926" alt="image" src="https://github.com/user-attachments/assets/b15ab49d-9bc9-49b9-9760-c351ae17ff87" />
+- historico de execucao
+- dashboards HTML
+- resultado em JSON dos testes
+- relatorio HTML do Newman
 
 ## Participantes
 
