@@ -1,30 +1,40 @@
-# Dream Travel API | mentoria-qa-desafio4-grupo22
+# ✈️ Dream Travel API | mentoria-qa-desafio4-grupo22
 
-API REST desenvolvida em Node.js + Express para cadastro de viagens dos sonhos.
+API REST desenvolvida em **Node.js + Express** para cadastro de viagens dos sonhos.
 
-O projeto foi organizado para manter a API simples, mas com uma estrutura profissional para backend e QA, incluindo testes automatizados com Jest + Supertest, documentacao Swagger e apoio a execucoes com Newman.
+> 🧪 **Foco principal:** testes automatizados de API com **Jest**, **Supertest** e apoio a execuções com **Newman**, validando regras de negócio, contratos e cenários de erro.
 
-## Objetivo
+---
 
-Este projeto serve como base para pratica de:
+## 🚀 Objetivo
+
+Este projeto serve como base para prática de:
 
 - testes automatizados de API
-- validacao de contratos e regras de negocio
-- organizacao de backend por responsabilidade
-- documentacao de endpoints
-- geracao de evidencias de execucao
+- validação de contratos de request/response
+- cobertura de cenários positivos e negativos
+- validação de regras de negócio
+- organização de backend com separação de responsabilidades
+- geração de evidências de execução
 
-## Tecnologias
+---
 
+## 🛠️ Tecnologias
+
+### API
 - Node.js
 - Express
-- Jest
-- Supertest
 - Swagger UI Express
 - Swagger JSDoc
+
+### Testes
+- Jest
+- Supertest
 - Newman
 
-## Estrutura do projeto
+---
+
+## 📁 Estrutura do projeto
 
 ```text
 src/
@@ -37,6 +47,10 @@ src/
     viagemService.js
   validations/
     viagem.validation.js
+
+resources/
+  swagger/
+    swagger.js
 
 docs/
   Postman/
@@ -51,28 +65,33 @@ tests/
 scripts/
 reports/
 package.json
+README.md
 ```
 
-## Arquitetura
+---
 
-- `src/app.js`: configuracao do Express, middlewares, Swagger, rotas e exportacao do app
-- `controllers`: controle de entrada e saida HTTP
-- `services`: regras de negocio e persistencia em memoria
-- `validations`: validacao e sanitizacao do payload
-- `tests/fixtures`: dados reutilizaveis para os testes
-- `tests/e2e`: cenarios end-to-end da API com Supertest
-- `resources/swagger`: configuracao da documentacao OpenAPI
-- `docs/Postman`: collection para execucao via Newman
-- `reports`: evidencias e historico das execucoes
+## 💡 Arquitetura
 
-## Como rodar o projeto
+- `src/app.js`: configura o Express, middlewares, Swagger, rotas e exporta o app
+- `controllers`: camada responsável pela entrada e saída HTTP
+- `services`: regras de negócio e persistência em memória
+- `validations`: validação e sanitização do payload
+- `tests/e2e`: cenários end-to-end com Supertest
+- `tests/fixtures`: massa de dados reutilizável
+- `resources/swagger`: configuração da documentação OpenAPI
+- `docs/Postman`: collection para execução via Newman
+- `reports`: evidências e histórico das execuções
 
-### Pre-requisitos
+---
+
+## ⚙️ Como rodar o projeto
+
+### Pré-requisitos
 
 - Node.js 18 ou superior
 - npm
 
-### Instalacao
+### Instalação
 
 ```bash
 npm install
@@ -84,7 +103,7 @@ npm install
 npm start
 ```
 
-A API sera iniciada em:
+A API será iniciada em:
 
 ```text
 http://localhost:3000
@@ -96,9 +115,11 @@ http://localhost:3000
 npm run dev
 ```
 
-## Swagger
+---
 
-Com a API em execucao, acesse:
+## 📚 Swagger
+
+Com a API em execução, acesse:
 
 ```text
 http://localhost:3000/docs
@@ -109,11 +130,13 @@ Endpoints documentados:
 - `POST /viagens`
 - `GET /viagens`
 
-## Testes automatizados
+---
+
+## 🧪 Testes automatizados
 
 ### Jest + Supertest
 
-Executa a suite principal:
+Executa a suíte principal:
 
 ```bash
 npm test
@@ -125,9 +148,9 @@ Gera resultado em JSON:
 npm run test:json
 ```
 
-Os testes usam Supertest diretamente sobre o app da aplicacao, preservando os contratos da API.
+Os testes usam Supertest diretamente sobre o app da aplicação, preservando os contratos da API.
 
-### Historico e dashboard
+### Histórico e dashboard
 
 ```bash
 npm run history:save
@@ -137,13 +160,13 @@ npm run test:history
 
 ### Postman / Newman
 
-Executa a collection Postman e gera relatorio HTML:
+Executa a collection Postman e gera relatório HTML:
 
 ```bash
 npm run test:postman
 ```
 
-Relatorio gerado em:
+Relatório gerado em:
 
 ```text
 reports/newman-report.html
@@ -157,7 +180,7 @@ O projeto possui a collection:
 docs/Postman/viagens.postman_collection.json
 ```
 
-Ela pode ser executada via Newman usando o script ja configurado no `package.json`.
+Ela pode ser executada via Newman usando o script já configurado no `package.json`.
 
 #### Como executar
 
@@ -173,34 +196,36 @@ npm start
 npm run test:postman
 ```
 
-Esse comando executa o script abaixo do `package.json`:
+Esse comando executa:
 
 ```bash
 newman run docs/Postman/viagens.postman_collection.json -r "cli,htmlextra" --reporter-htmlextra-export reports/newman-report.html
 ```
 
-#### Resultado da execucao
+#### Resultado da execução
 
-- saida no terminal com o reporter `cli`
-- relatorio HTML gerado em `reports/newman-report.html`
+- saída no terminal com o reporter `cli`
+- relatório HTML gerado em `reports/newman-report.html`
 
 #### Quando usar
 
 - validar a collection fora do Jest
-- gerar evidencia visual de execucao
+- gerar evidência visual de execução
 - compartilhar o resultado dos testes com o time
+
+---
 
 ## Endpoints
 
 ### GET /
 
-Retorna informacoes basicas da API.
+Retorna informações básicas da API.
 
 ### POST /viagens
 
 Cria uma nova viagem.
 
-#### Exemplo de body
+#### Exemplo de body JSON
 
 ```json
 {
@@ -210,66 +235,65 @@ Cria uma nova viagem.
   "dias": 15,
   "status": false
 }
-```
 
-#### Exemplo com curl
-
-```bash
-curl -X POST http://localhost:3000/viagens \
-  -H "Content-Type: application/json" \
-  -d "{\"destino\":\"Japao\",\"orcamento\":15000,\"atividades\":[\"Templos\",\"Anime\",\"Culinaria\"],\"dias\":15,\"status\":false}"
 ```
 
 ### GET /viagens
 
-Lista todas as viagens cadastradas em memoria.
+Lista todas as viagens cadastradas em memória.
 
-Tambem aceita ordenacao via query params:
+Também aceita ordenação via query params:
 
 - `sortBy=id|destino|orcamento|dias|status`
 - `order=asc|desc`
 
-#### Exemplo
+---
+
+## 📏 Regras implementadas
+
+| Campo               | Tipo       | Regra                               | Obrigatório |
+| ------------------- | ---------- | ----------------------------------- | ----------- |
+| Destino             | `string`   | Máximo de 50 caracteres             | SIM |
+| Orçamento           | `float`    | Deve ser maior que 0,00             | SIM |
+| Lista de atividades | `string[]` | Deve conter entre 1 e 10 atividades | SIM |
+| Duração (dias)      | `integer`  | Deve ser maior ou igual a 1         | SIM |
+| Realizada           | `boolean`  | Aceita apenas `true` ou `false`     | SIM |
+
+- Não deve ser permitido cadastrar destinos duplicados, considerando comparação case-insensitive. O sistema deve retornar status `409` Conflict.
+- erros de validacao retornam `400`
+- ID incremental gerado em memoria
+
+---
+
+#### Exemplo cURL
 
 ```bash
-curl "http://localhost:3000/viagens?sortBy=destino&order=asc"
+curl -X POST http://localhost:3000/viagens \
+  -H "Content-Type: application/json" \
+  -d "{\"destino\":\"Japão\",\"orcamento\":15000,\"atividades\":[\"Templos\",\"Anime\",\"Culinaria\"],\"dias\":15,\"status\":false}"
 ```
 
-## Regras implementadas
+## ⚠️ Persistência
 
-| Campo | Tipo | Regra | Obrigatorio |
-| --- | --- | --- | --- |
-| destino | `string` | maximo de 50 caracteres | sim |
-| orcamento | `number` | deve ser maior que 0 | sim |
-| atividades | `string[]` | deve conter entre 1 e 10 itens | sim |
-| dias | `integer` | deve ser maior ou igual a 1 | sim |
-| status | `boolean` | aceita apenas `true` ou `false` | sim |
+A API utiliza persistência em memória. Isso torna o projeto leve e adequado para:
 
-Regras adicionais:
+- execução rápida dos testes
+- simulação de cenários
+- estudos de automação de API
 
-- nao permite cadastrar destinos duplicados, considerando comparacao case-insensitive
-- erros de validacao retornam `400`
-- duplicidade retorna `409`
-- o ID e incremental e gerado em memoria
+---
 
-## Persistencia
+## 📊 Dashboard Histórico de execução
 
-A API utiliza persistencia em memoria. Isso torna o projeto leve e adequado para:
+<img width="1920" height="1334" alt="Designer" src="https://github.com/user-attachments/assets/4cfd41d4-4496-422e-9fc7-92e48685ced5" />
 
-- execucao rapida dos testes
-- simulacao de cenarios
-- estudos de automacao de API
+### Cenários
 
-## Evidencias
+<img width="1920" height="1926" alt="image" src="https://github.com/user-attachments/assets/b15ab49d-9bc9-49b9-9760-c351ae17ff87" />
 
-Arquivos de apoio e evidencias ficam em `reports/`, incluindo:
+---
 
-- historico de execucao
-- dashboards HTML
-- resultado em JSON dos testes
-- relatorio HTML do Newman
-
-## Participantes
+## 👥 Participantes
 
 - Arande Souza | arande89@gmail.com
 - Aimee | aimeeas@gmail.com
