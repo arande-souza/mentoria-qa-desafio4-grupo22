@@ -1,9 +1,10 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const viagemRoutes = require('./routes/viagemRoutes');
-const swaggerSpec = require('../docs/swagger/swagger');
+const swaggerSpec = require('../resources/swagger/swagger');
 
 const app = express();
+const PORT = 3000;
 
 app.use(express.json());
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
@@ -18,5 +19,11 @@ app.use((err, req, res, next) => {
 
   return next(err);
 });
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`API de viagens rodando em http://localhost:${PORT}`);
+  });
+}
 
 module.exports = app;

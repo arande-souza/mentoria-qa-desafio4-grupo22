@@ -1,6 +1,6 @@
 const request = require('supertest');
-const { app } = require('../app');
-const { makeViagem, makeAtividades } = require('./fixtures/viagem.fixture');
+const app = require('../../src/app');
+const { makeViagem, makeAtividades } = require('../fixtures/viagem.fixture');
 
 describe('API de Viagens', () => {
   describe('POST /viagens', () => {

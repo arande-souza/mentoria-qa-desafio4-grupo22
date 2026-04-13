@@ -39,30 +39,30 @@ src/
     viagem.validation.js
 
 docs/
-  swagger/
-    swagger.js
+  Postman/
+    viagens.postman_collection.json
 
 tests/
-  app.test.js
+  e2e/
+    viagens.test.js
   fixtures/
     viagem.fixture.js
 
 scripts/
 reports/
-app.js
-validation.js
 package.json
 ```
 
 ## Arquitetura
 
-- `app.js` na raiz: bootstrap da aplicacao e compatibilidade com a execucao local
 - `src/app.js`: configuracao do Express, middlewares, Swagger, rotas e exportacao do app
 - `controllers`: controle de entrada e saida HTTP
 - `services`: regras de negocio e persistencia em memoria
 - `validations`: validacao e sanitizacao do payload
 - `tests/fixtures`: dados reutilizaveis para os testes
-- `docs/swagger`: configuracao da documentacao OpenAPI
+- `tests/e2e`: cenarios end-to-end da API com Supertest
+- `resources/swagger`: configuracao da documentacao OpenAPI
+- `docs/Postman`: collection para execucao via Newman
 - `reports`: evidencias e historico das execucoes
 
 ## Como rodar o projeto
@@ -154,7 +154,7 @@ reports/newman-report.html
 O projeto possui a collection:
 
 ```text
-viagens.postman_collection.json
+docs/Postman/viagens.postman_collection.json
 ```
 
 Ela pode ser executada via Newman usando o script ja configurado no `package.json`.
@@ -176,7 +176,7 @@ npm run test:postman
 Esse comando executa o script abaixo do `package.json`:
 
 ```bash
-newman run viagens.postman_collection.json -r "cli,htmlextra" --reporter-htmlextra-export reports/newman-report.html
+newman run docs/Postman/viagens.postman_collection.json -r "cli,htmlextra" --reporter-htmlextra-export reports/newman-report.html
 ```
 
 #### Resultado da execucao

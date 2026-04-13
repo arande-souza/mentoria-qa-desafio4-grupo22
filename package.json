@@ -4,15 +4,15 @@
   "description": "API REST para cadastro de viagens dos sonhos",
   "main": "src/app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "node --watch app.js",
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js",
     "test": "jest",
     "test:json": "jest --runInBand --json --outputFile=reports/latest-run.json",
     "history:save": "node scripts/save-history.js",
     "history:dashboard": "node scripts/generate-dashboard.js",
     "test:history": "node scripts/run-history.js",
     "test:dash": "node scripts/run-history.js",
-    "test:postman": "newman run viagens.postman_collection.json -r \"cli,htmlextra\" --reporter-htmlextra-export reports/newman-report.html"
+    "test:postman": "newman run docs/Postman/viagens.postman_collection.json -r \"cli,htmlextra\" --reporter-htmlextra-export reports/newman-report.html"
   },
   "keywords": [
     "node",
