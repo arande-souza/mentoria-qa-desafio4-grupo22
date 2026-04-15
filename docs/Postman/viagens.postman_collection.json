@@ -697,6 +697,585 @@
           ]
         }
       ]
+    },
+    {
+      "name": "07 - Validação de campos (complementar)",
+      "item": [
+        {
+          "name": "01 - Campos obrigatórios ausentes",
+          "item": [
+            {
+              "name": "CT20 - deve retornar 400 quando destino está ausente",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": false\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar o campo destino', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('destino');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "CT21 - deve retornar 400 quando orcamento está ausente",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destino\": \"Sem Orcamento\",\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": false\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar o campo orcamento', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('orcamento');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "CT22 - deve retornar 400 quando atividades está ausente",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destino\": \"Sem Atividades\",\n  \"orcamento\": 1000,\n  \"dias\": 1,\n  \"status\": false\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar o campo atividades', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('atividades');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "CT23 - deve retornar 400 quando dias está ausente",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destino\": \"Sem Dias\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"status\": false\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar o campo dias', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('dias');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "CT24 - deve retornar 400 quando status está ausente",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destino\": \"Sem Status\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar o campo status', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('status');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "02 - Validações de tipo",
+          "item": [
+            {
+              "name": "CT25 - deve retornar 400 quando destino é um número",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destino\": 123,\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": false\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar o campo destino', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('destino');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "CT26 - deve retornar 400 quando orcamento é uma string",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destino\": \"Tipo Orcamento\",\n  \"orcamento\": \"quinze mil\",\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": false\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar o campo orcamento', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('orcamento');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "CT27 - deve retornar 400 quando atividades é uma string",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destino\": \"Tipo Atividades\",\n  \"orcamento\": 1000,\n  \"atividades\": \"Templos\",\n  \"dias\": 1,\n  \"status\": false\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar o campo atividades', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('atividades');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "CT28 - deve retornar 400 quando dias é um decimal",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destino\": \"Tipo Dias\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 7.5,\n  \"status\": false\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar o campo dias', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('dias');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "CT29 - deve retornar 400 quando status é uma string",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destino\": \"Tipo Status\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": \"false\"\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar o campo status', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('status');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "03 - Validações de atividades",
+          "item": [
+            {
+              "name": "CT30 - deve retornar 400 quando atividade contém string vazia",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destino\": \"Atividade Vazia\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Templos\", \"   \"],\n  \"dias\": 1,\n  \"status\": false\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar posicao 1', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('posicao 1');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "CT31 - deve retornar 400 quando atividade não é uma string",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destino\": \"Atividade Tipo Invalido\",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Templos\", 99],\n  \"dias\": 1,\n  \"status\": false\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar posicao 1', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('posicao 1');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "05 - Destino com espaços em branco",
+          "item": [
+            {
+              "name": "CT34 - deve retornar 400 quando destino é apenas espaços",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destino\": \"     \",\n  \"orcamento\": 1000,\n  \"atividades\": [\"Teste\"],\n  \"dias\": 1,\n  \"status\": false\n}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Response deve conter errors como array', function () {",
+                      "  pm.expect(json).to.have.property('errors');",
+                      "  pm.expect(json.errors).to.be.an('array');",
+                      "});",
+                      "",
+                      "pm.test('Errors deve mencionar o campo destino', function () {",
+                      "  pm.expect(JSON.stringify(json.errors)).to.include('destino');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "06 - JSON malformado",
+          "item": [
+            {
+              "name": "CT35 - deve retornar 400 quando o body não é um JSON válido",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/viagens",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{ destino: Japao, orcamento: }"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status deve ser 400 para JSON invalido', function () {",
+                      "  pm.response.to.have.status(400);",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
