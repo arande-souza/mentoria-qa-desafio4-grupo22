@@ -2,13 +2,9 @@ const request = require('supertest');
 const app = require('../../src/app');
 const { makeViagem, makeAtividades } = require('../fixtures/viagem.fixture');
 
-describe('API de Viagens', () => {
-  describe('POST /viagens', () => {
+describe('API de Viagens - POST /viagens', () => {
 
-    // =========================
-    // CENÁRIOS PRINCIPAIS
-    // =========================
-
+  describe('Cenarios principais', () => {
     it('CT17 - deve criar uma nova viagem com dados validos', async () => {
       const viagemData = makeViagem();
 
@@ -102,11 +98,9 @@ describe('API de Viagens', () => {
         ])
       );
     });
+  });
 
-    // =========================
-    // BVA - DESTINO
-    // =========================
-
+  describe('BVA - destino', () => {
     const casosDestino = [
       { ct: 'CT01', tamanho: 49, esperado: 201 },
       { ct: 'CT02', tamanho: 50, esperado: 201 },
@@ -129,11 +123,9 @@ describe('API de Viagens', () => {
         expect(response.status).toBe(esperado);
       }
     );
+  });
 
-    // =========================
-    // BVA - ORÇAMENTO
-    // =========================
-
+  describe('BVA - orcamento', () => {
     const casosOrcamento = [
       { ct: 'CT05', valor: -1, esperado: 400 },
       { ct: 'CT06', valor: 0, esperado: 400 },
@@ -156,11 +148,9 @@ describe('API de Viagens', () => {
         expect(response.status).toBe(esperado);
       }
     );
+  });
 
-    // =========================
-    // BVA - DIAS
-    // =========================
-
+  describe('BVA - dias', () => {
     const casosDias = [
       { ct: 'CT08', dias: 0, esperado: 400 },
       { ct: 'CT09', dias: 1, esperado: 201 },
@@ -183,11 +173,9 @@ describe('API de Viagens', () => {
         expect(response.status).toBe(esperado);
       }
     );
+  });
 
-    // =========================
-    // BVA - ATIVIDADES
-    // =========================
-
+  describe('BVA - atividades', () => {
     const casosAtividades = [
       { ct: 'CT18', qtd: 0, esperado: 400 },
       { ct: 'CT19', qtd: 1, esperado: 201 },
@@ -212,11 +200,9 @@ describe('API de Viagens', () => {
         expect(response.status).toBe(esperado);
       }
     );
+  });
 
-    // =========================
-    // CAMPOS OBRIGATÓRIOS
-    // =========================
-
+  describe('Campos obrigatorios', () => {
     const camposObrigatorios = [
       { ct: 'CT20', campo: 'destino' },
       { ct: 'CT21', campo: 'orcamento' },
@@ -238,11 +224,9 @@ describe('API de Viagens', () => {
         expect(JSON.stringify(response.body.errors)).toContain(campo);
       }
     );
+  });
 
-    // =========================
-    // VALIDAÇÃO DE TIPOS
-    // =========================
-
+  describe('Validacao de tipos', () => {
     const tiposInvalidos = [
       { ct: 'CT25', campo: 'destino', valor: 123 },
       { ct: 'CT26', campo: 'orcamento', valor: 'quinze mil' },
@@ -265,11 +249,9 @@ describe('API de Viagens', () => {
         expect(JSON.stringify(response.body.errors)).toContain(campo);
       }
     );
+  });
 
-    // =========================
-    // VALIDAÇÕES ESPECÍFICAS
-    // =========================
-
+  describe('Validacoes especificas', () => {
     it('CT30 - atividade vazia', async () => {
       const response = await request(app).post('/viagens').send(
         makeViagem({
@@ -312,4 +294,5 @@ describe('API de Viagens', () => {
       expect(response.status).toBe(400);
     });
   });
+
 });

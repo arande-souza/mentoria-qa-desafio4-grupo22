@@ -235,7 +235,7 @@
   <section class="summary">
     <div class="summary-card">
       <span class="summary-label">Total de cenários</span>
-      <span class="summary-value">19</span>
+      <span class="summary-value">33</span>
     </div>
     <div class="summary-card">
       <span class="summary-label">Grupos de validação</span>
@@ -248,7 +248,7 @@
       <article class="group">
         <h2>Cenários Gerais da API</h2>
         <ol class="scenario-list">
-          <li><span class="scenario-code">CT17</span> - deve criar uma nova viagem com dados validos</li>
+          <li><span class="scenario-code">CT17</span> - deve criar uma nova viagem com dados validos</li><li><span class="scenario-code">CT20</span> - deve retornar erro quando destino está ausente</li><li><span class="scenario-code">CT25</span> - deve validar tipo inválido de destino</li><li><span class="scenario-code">CT30</span> - atividade vazia</li><li><span class="scenario-code">CT31</span> - atividade não string</li><li><span class="scenario-code">CT34</span> - destino apenas espaços</li><li><span class="scenario-code">CT35</span> - JSON inválido</li>
         </ol>
       </article>
     
@@ -262,7 +262,7 @@
       <article class="group">
         <h2>Validação de Status (Realizada)</h2>
         <ol class="scenario-list">
-          <li><span class="scenario-code">CT11</span> - deve retornar sucesso para status viagem realizada = false</li><li><span class="scenario-code">CT12</span> - deve retornar sucesso para status viagem realizada = true</li>
+          <li><span class="scenario-code">CT11</span> - deve retornar sucesso para status = false</li><li><span class="scenario-code">CT12</span> - deve retornar sucesso para status = true</li><li><span class="scenario-code">CT24</span> - deve retornar erro quando status está ausente</li><li><span class="scenario-code">CT29</span> - deve validar tipo inválido de status</li>
         </ol>
       </article>
     
@@ -283,21 +283,21 @@
       <article class="group">
         <h2>Validação de Orçamento</h2>
         <ol class="scenario-list">
-          <li><span class="scenario-code">CT05</span> - deve validar orcamento de -1 reais</li><li><span class="scenario-code">CT06</span> - deve validar orcamento de 0 reais</li><li><span class="scenario-code">CT07</span> - deve validar orcamento de 0.01 reais</li>
+          <li><span class="scenario-code">CT05</span> - deve validar orcamento -1</li><li><span class="scenario-code">CT06</span> - deve validar orcamento 0</li><li><span class="scenario-code">CT07</span> - deve validar orcamento 0.01</li><li><span class="scenario-code">CT21</span> - deve retornar erro quando orcamento está ausente</li><li><span class="scenario-code">CT26</span> - deve validar tipo inválido de orcamento</li>
         </ol>
       </article>
     
       <article class="group">
         <h2>Validação de Duração da Viagem (Dias)</h2>
         <ol class="scenario-list">
-          <li><span class="scenario-code">CT08</span> - deve validar dias = 0</li><li><span class="scenario-code">CT09</span> - deve validar dias = 1</li><li><span class="scenario-code">CT10</span> - deve validar dias = 2</li>
+          <li><span class="scenario-code">CT08</span> - deve validar dias = 0</li><li><span class="scenario-code">CT09</span> - deve validar dias = 1</li><li><span class="scenario-code">CT10</span> - deve validar dias = 2</li><li><span class="scenario-code">CT23</span> - deve retornar erro quando dias está ausente</li><li><span class="scenario-code">CT28</span> - deve validar tipo inválido de dias</li>
         </ol>
       </article>
     
       <article class="group">
         <h2>Validação da Lista de Atividades</h2>
         <ol class="scenario-list">
-          <li><span class="scenario-code">CT13</span> - deve validar cadastro com 9 atividades</li><li><span class="scenario-code">CT14</span> - deve validar cadastro com 10 atividades</li><li><span class="scenario-code">CT15</span> - deve validar cadastro com 11 atividades</li><li><span class="scenario-code">CT18</span> - deve validar cadastro com 0 atividades</li><li><span class="scenario-code">CT19</span> - deve validar cadastro com 1 atividades</li>
+          <li><span class="scenario-code">CT13</span> - deve validar quantidade de atividades = 9</li><li><span class="scenario-code">CT14</span> - deve validar quantidade de atividades = 10</li><li><span class="scenario-code">CT15</span> - deve validar quantidade de atividades = 11</li><li><span class="scenario-code">CT18</span> - deve validar quantidade de atividades = 0</li><li><span class="scenario-code">CT19</span> - deve validar quantidade de atividades = 1</li><li><span class="scenario-code">CT22</span> - deve retornar erro quando atividades está ausente</li><li><span class="scenario-code">CT27</span> - deve validar tipo inválido de atividades</li>
         </ol>
       </article>
     

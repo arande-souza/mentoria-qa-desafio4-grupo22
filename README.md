@@ -56,6 +56,21 @@ mentoria-qa-desafio4-grupo22/
 ├── package.json        # dependências e scripts do projeto
 └── README.md           # documentação principal
 ```
+
+---
+
+## 💡 Arquitetura
+
+- `src/app.js`: configura o Express, middlewares, Swagger, rotas e exporta o app
+- `controllers`: camada responsável pela entrada e saída HTTP
+- `services`: regras de negócio e persistência em memória
+- `validations`: validação e sanitização do payload
+- `tests/e2e`: cenários end-to-end com Supertest
+- `tests/fixtures`: massa de dados reutilizável
+- `resources/swagger`: configuração da documentação OpenAPI
+- `docs/Postman`: collection para execução via Newman
+- `reports`: evidências e histórico das execuções
+
 ---
 
 ## ⚙️ Como rodar o projeto
@@ -113,20 +128,23 @@ Endpoints documentados:
 Executa a suíte principal:
 
 ```bash
-npm test 
-
+npm test
 ```
-```bash
-npm run test
 
+Gera resultado em JSON:
+
+```bash
+npm run test:json
 ```
 
 Os testes usam Supertest diretamente sobre o app da aplicação, preservando os contratos da API.
 
-### Executar e gerar dashboard
+### Histórico e dashboard
 
 ```bash
-npm run history:dash
+npm run history:save
+npm run history:dashboard
+npm run test:history
 ```
 
 ### Postman / Newman
@@ -209,6 +227,17 @@ Cria uma nova viagem.
 
 ```
 
+### GET /viagens
+
+Lista todas as viagens cadastradas em memória.
+
+Também aceita ordenação via query params:
+
+- `sortBy=id|destino|orcamento|dias|status`
+- `order=asc|desc`
+
+---
+
 ## 📏 Regras implementadas
 
 | Campo               | Tipo       | Regra                               | Obrigatório |
@@ -256,7 +285,7 @@ A API utiliza persistência em memória. Isso torna o projeto leve e adequado pa
 ## 👥 Participantes
 
 - Arande Souza | arande89@gmail.com
-- Aimee | aimeeas@gmail.com
-- Fabiano Pereira |
+- Aimee Andrade | aimeeas@gmail.com
+- Fabiano Pereira | fab_pereira@hotmail.com
 - Jaciara | Jaciara_mjss@hotmail.com
 - Ricardo Albuquerque | r.albuquerquem@gmail.com
