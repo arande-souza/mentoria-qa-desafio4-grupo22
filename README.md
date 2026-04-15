@@ -265,5 +265,5 @@ A API utiliza persistência em memória. Isso torna o projeto leve e adequado pa
 - Arandê Souza | arande89@gmail.com
 - Aimêe Andrade | aimeeas@gmail.com
 - Fabiano Pereira | fab_pereira@hotmail.com
-- Jaciara | Jaciara_mjss@hotmail.com
+- Maria Jaciara | Jaciara_mjss@hotmail.com
 - Ricardo Albuquerque | r.albuquerquem@gmail.com
