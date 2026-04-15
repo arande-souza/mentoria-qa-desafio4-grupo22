@@ -56,21 +56,6 @@ mentoria-qa-desafio4-grupo22/
 ├── package.json        # dependências e scripts do projeto
 └── README.md           # documentação principal
 ```
-
----
-
-## 💡 Arquitetura
-
-- `src/app.js`: configura o Express, middlewares, Swagger, rotas e exporta o app
-- `controllers`: camada responsável pela entrada e saída HTTP
-- `services`: regras de negócio e persistência em memória
-- `validations`: validação e sanitização do payload
-- `tests/e2e`: cenários end-to-end com Supertest
-- `tests/fixtures`: massa de dados reutilizável
-- `resources/swagger`: configuração da documentação OpenAPI
-- `docs/Postman`: collection para execução via Newman
-- `reports`: evidências e histórico das execuções
-
 ---
 
 ## ⚙️ Como rodar o projeto
@@ -130,21 +115,12 @@ Executa a suíte principal:
 ```bash
 npm test
 ```
-
-Gera resultado em JSON:
-
-```bash
-npm run test:json
-```
-
 Os testes usam Supertest diretamente sobre o app da aplicação, preservando os contratos da API.
 
-### Histórico e dashboard
+### Executar suíte principal com histórico e dashboard dos testes
 
 ```bash
-npm run history:save
-npm run history:dashboard
-npm run test:history
+npm run test:dash
 ```
 
 ### Postman / Newman
@@ -274,18 +250,20 @@ A API utiliza persistência em memória. Isso torna o projeto leve e adequado pa
 
 ## 📊 Dashboard Histórico de execução
 
-<img width="1920" height="1334" alt="Designer" src="https://github.com/user-attachments/assets/4cfd41d4-4496-422e-9fc7-92e48685ced5" />
+<img width="1920" height="1481" alt="screencapture-file-C-mentoria-qa-desafio4-grupo22-reports-dashboard-html-2026-04-15-12_29_48copia" src="https://github.com/user-attachments/assets/7c0a7088-8a61-46a4-a9c3-464bcc03277e" />
+
 
 ### Cenários
 
-<img width="1920" height="1926" alt="image" src="https://github.com/user-attachments/assets/b15ab49d-9bc9-49b9-9760-c351ae17ff87" />
+<img width="1520" height="1751" alt="screencapture-file-C-mentoria-qa-desafio4-grupo22-reports-scenarios-html-2026-04-15-12_30_01" src="https://github.com/user-attachments/assets/8a784d59-b74c-43c2-9e25-72571d35a56a" />
+
 
 ---
 
 ## 👥 Participantes
 
-- Arande Souza | arande89@gmail.com
-- Aimee Andrade | aimeeas@gmail.com
+- Arandê Souza | arande89@gmail.com
+- Aimêe Andrade | aimeeas@gmail.com
 - Fabiano Pereira | fab_pereira@hotmail.com
 - Jaciara | Jaciara_mjss@hotmail.com
 - Ricardo Albuquerque | r.albuquerquem@gmail.com
